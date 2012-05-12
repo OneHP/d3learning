@@ -23,7 +23,7 @@
     minDate = date(xdata[0]);
     maxDate = date(xdata[xdata.length - 1]);
     x = d3.time.scale().domain([minDate, maxDate]).range([0, width]);
-    y = d3.scale.linear().domain([0, d3.max(ydata)]).range([height, 0]);
+    y = d3.scale.linear().domain([d3.min(ydata), d3.max(ydata)]).range([height, 0]);
     chart = d3.select('#content').append('svg:svg').attr('width', width + margin.right + margin.left).attr('height', height + margin.top + margin.bottom).attr('class', 'chart');
     main = chart.append('g').attr('transform', 'translate(' + margin.left + ',' + margin.top + ')').attr('width', width).attr('height', height).attr('class', 'main');
     xAxis = d3.svg.axis().scale(x).orient('bottom');
@@ -44,7 +44,7 @@
     var dateParts, dateTimeParts;
     dateTimeParts = stringDateTime.split(' ');
     dateParts = dateTimeParts[0].split('/');
-    return new Date(dateParts[2], dateParts[1], dateParts[0]);
+    return new Date(dateParts[2], dateParts[1] - 1, dateParts[0]);
   };
 
 }).call(this);

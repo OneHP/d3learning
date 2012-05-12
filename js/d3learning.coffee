@@ -27,7 +27,7 @@ d3.csv('../data/cycling.csv', (csv) ->
 	          .range([ 0, width ])        # the pixel range of the x-axis
 	
 	y = d3.scale.linear()
-	          .domain([0, d3.max(ydata)])
+	          .domain([d3.min(ydata), d3.max(ydata)])
 	          .range([ height, 0 ])
 	
 	# the chart object, includes all margins
@@ -83,4 +83,4 @@ d3.csv('../data/cycling.csv', (csv) ->
 date = (stringDateTime) ->
 	dateTimeParts = stringDateTime.split(' ')
 	dateParts = dateTimeParts[0].split('/')
-	new Date(dateParts[2],dateParts[1],dateParts[0])
+	new Date(dateParts[2],dateParts[1]-1,dateParts[0])
