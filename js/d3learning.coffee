@@ -16,6 +16,7 @@ d3.csv('../data/cycling.csv', (csv) ->
 	height = 500 - margin.top - margin.bottom
 	
 	minDate = date(xdata[0])
+	minDate.setDate(minDate.getDate() - 1)
 	maxDate = date(xdata[xdata.length-1])
 	
 	x = d3.time.scale()
@@ -23,7 +24,7 @@ d3.csv('../data/cycling.csv', (csv) ->
 	          .range([ 0, width ])        # the pixel range of the x-axis
 	
 	y = d3.scale.linear()
-	          .domain([d3.min(ydata), d3.max(ydata)])
+	          .domain([d3.min(ydata)-0.3, d3.max(ydata)])
 	          .range([ height, 0 ])
 	
 	# the chart object, includes all margins
@@ -54,6 +55,15 @@ d3.csv('../data/cycling.csv', (csv) ->
 	yAxis = d3.svg.axis()
 		.scale(y)
 		.orient('left')
+		
+	# Add a y-axis label.
+	main.append("text")
+	    .attr("class", "label")
+	    .attr("text-anchor", "end")
+	    .attr("y", 6)
+	    .attr("dy", ".75em")
+	    .attr("transform", "rotate(-90)")
+	    .text("average speed (mph)");
 	
 	main.append('g')
 		.attr('transform', 'translate(0,0)')
